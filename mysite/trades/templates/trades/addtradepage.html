@@ -9,95 +9,88 @@
 </head>
 <body>
 
-  <div class="header">
-    <h1>Add Trade Data</h1>
-  </div>
+  <div id="page-container">
+    <div id="content-wrap">
+      <div class="header">
+        <h1>Add Trade Data</h1>
+      </div>
 
-  <div class="sidenav">
-    <title>Menu</title>
-    <a>Today's Trades</a>
-    <a>Add Trade</a>
-    <a>Report Archive</a>
-    <a>Settings</a>
-  </div>
+      <div class="sidenav">
+        <title>Menu</title>
+        <a>Today's Trades</a>
+        <a href="addtradepage.html">Add Trade</a>
+        <a>Report Archive</a>
+        <a href="settingspage.html">Settings</a>
+      </div>
 
-  <div class="main">
-    <form>
+      <div class="main">
+        <div class="box">
+        <form>
 
-      <label for="tradeID">Trade ID:</label>
-      <input type="text" id="tradeID" name="tradeID"><br><br>
+          <label for="tradeID">Trade ID:</label><br>
+          <input type="text" id="tradeID" name="tradeID"><br>
 
-      <label for="date">Date:</label>
-      <input type="date" id="tradeDate" name="tradeDate"><br><br>
+          <label for"datetime">Date and Time of Trade:</label><br>
+          <input type="date" id="tradeDate" name="tradeDate">
+          <input type="time" id="tradeTime" name="tradeTime"><br>
 
-      <label for="time">Time:</label>
-      <input type="time" id="tradeTime" name="tradeTime"><br><br>
+          <label for="productInformation">Product Information: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="text" id="productInformation" name="productInformation"><br>
 
-      <label for="productInformation">Product Information:</label>
-      <input type="text" id="productInformation" name="productInformation">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="buyingPartyInformation">Buying Party Information: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="text" id="buyingPartyInformation" name="buyingPartyInformation"><br>
 
-      <label for="buyingPartyInformation">Buying Party Information:</label>
-      <input type="text" id="buyingPartyInformation" name="buyingPartyInformation">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="sellingPartyInformation">Selling Party Information: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="text" id="sellingPartyInformation" name="sellingPartyInformation"><br>
 
-      <label for="sellingPartyInformation">Selling Party Information:</label>
-      <input type="text" id="sellingPartyInformation" name="sellingPartyInformation">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="notionalAmount">Notional Amount: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="number" id="notionalAmount" name="notionalAmount" step="0.01" min="1"><br>
 
-      <label for="notionalAmount">Notional Amount:</label>
-      <input type="number" id="notionalAmount" name="notionalAmount" step="0.01" min="1">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="quantity">Quantity: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="number" id="quantity" name="quantity" min="1"><br>
 
-      <label for="quantity">Quantity:</label>
-      <input type="number" id="quantity" name="quantity" min="1">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="maturityDate">Maturity Date: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="date" id="maturityDate" name="maturityDate"><br>
 
-      <label for="maturityDate">Maturity Date:</label>
-      <input type="date" id="maturityDate" name="maturityDate">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="underlyingAmount">Underlying Amount: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="number" id="underlyingAmount" name="underlyingAmount" step="0.01" min="1"><br>
 
-      <label for="underlyingAmount">Underlying Amount:</label>
-      <input type="number" id="underlyingAmount" name="underlyingAmount" step="0.01" min="1">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="underlyingCurrency">Underlying Currency: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+              <span class="tooltiptext">Text</span>
+            </div><br>
+          <select id="underlyingCurrency" name="underlyingCurrency">
+            <option value="gbp">GBP</option>
+            <option value="usd">USD</option>
+          </select><br>
 
-      <label for="underlyingCurrency">Underlying Currency:</label>
-      <select id="underlyingCurrency" name="underlyingCurrency">
-        <option value="gbp">GBP</option>
-        <option value="usd">USD</option>
-      </select>
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <label for="strikePrice">Strike Price: </label><div class="tooltip"><i class="fas fa-question-circle"></i>
+            <span class="tooltiptext">Text</span>
+          </div><br>
+          <input type="number" id="strikePrice" name="strikePrice" step="0.01" min="1"><br>
 
-      <label for="strikePrice">Strike Price:</label>
-      <input type="number" id="strikePrice" name="strikePrice" step="0.01" min="1">
-      <div class="tooltip"><i class="fas fa-question-circle"></i>
-        <span class="tooltiptext">Text</span>
-      </div><br><br>
+          <input type="submit" value="Add Trade">
+          <input type="button" value="Cancel">
 
-      <input type="submit" value="Add Trade">
-      <input type="button" value="Cancel">
-
-    </form>
-  </div>
-
-  <div class="footer">
-    <h2>Footer</h2>
+        </form>
+      </div>
+      </div>
+    </div>
+    <div class="footer">
+    </div>
   </div>
 
 </body>
