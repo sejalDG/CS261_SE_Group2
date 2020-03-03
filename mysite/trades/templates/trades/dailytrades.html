@@ -1,17 +1,25 @@
 <?php
+$serverName = "group7.cz9bnfubqjbd.eu-west-2.rds.amazonaws.com";
+$username = "group7root";
+$password = "group7password";
+$dbName = "group2";
 
-if(isset($_POST['search'])) {
-
+<!-- if(isset($_POST['search'])) {
+  $query = "SELECT * FROM group2"
+  $search_result = filterTable($query);
 }
 else{
-  $query = "SELECT * FROM 'trades'"
+  $query = "SELECT * FROM group2"
   $search_result = filterTable($query);
 }
 
-function filterTable($query){
-  $myPDO = new PDO('sqlite:/')
-  $filter_result =
-}
+
+function filterTable($query)
+ {
+  $connect = mysqli_connect($serverName, $username, $password, $dbName);
+  $filterDB = mysqli_query($connect, $query);
+  return $filterDB;
+} -->
 ?>
 
 <!DOCTYPE html>
@@ -42,20 +50,38 @@ function filterTable($query){
 <div class="main">
   <form>
     <input type="text" name="value" displayedOnPage="Value To Search"><br><br>
-    <input type="text" name="search" value="Filter"><br><br>
+    <input type="submit" name="search" value="Filter"><br><br>
     <table>
-      <tr>Trade ID</tr>
-      <tr>Date Of Trade</tr>
-      <tr>Time Of Trade</tr>
-      <tr>Product</tr>
-      <tr>Buying Party</tr>
-      <tr>Selling Party</tr>
-      <tr>Notional Amount</tr>
-      <tr>Quantity</tr>
-      <tr>Maturity Date</tr>
-      <tr>Underlying Amount</tr>
-      <tr>Underlying Currency</tr>
-      <tr>Strike Price</tr>
+      <tr>
+        <th>Trade ID</th>
+        <th>Date Of Trade</th>
+        <th>Time Of Trade</th>
+        <th>Product</th>
+        <th>Buying Party</th>
+        <th>Selling Party</th>
+        <th>Notional Amount</th>
+        <th>Quantity</th>
+        <th>Maturity Date</th>
+        <th>Underlying Amount</th>
+        <th>Underlying Currency</th>
+        <th>Strike Price</th>
+      </tr>
+      <?php while($row = mysqli_fetch_array($search_result)):?>
+      <tr>
+        <td><?php echo $row['id'];?></td>
+        <td><?php echo $row['dateCreated'];?></td>
+        <td><?php echo $row['timeCreated'];?></td>
+        <td><?php echo $row['prodInfo'];?></td>
+        <td><?php echo $row['buyingPartyInfo'];?></td>
+        <td><?php echo $row['sellingPartyInfo'];?></td>
+        <td><?php echo $row['notionalAmount'];?></td>
+        <td><?php echo $row['quanity'];?></td>
+        <td><?php echo $row['maturityDate'];?></td>
+        <td><?php echo $row['underlyingAmount'];?></td>
+        <td><?php echo $row['underlyingCurrency'];?></td>
+        <td><?php echo $row['strikePrice'];?></td>
+      </tr>
+      <?php endwhile;?>
     </table>
   </form>
 </div>
