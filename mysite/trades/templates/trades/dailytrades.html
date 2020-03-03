@@ -1,3 +1,19 @@
+<?php
+
+if(isset($_POST['search'])) {
+
+}
+else{
+  $query = "SELECT * FROM 'trades'"
+  $search_result = filterTable($query);
+}
+
+function filterTable($query){
+  $myPDO = new PDO('sqlite:/')
+  $filter_result =
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <!-- Metadata for file -->
@@ -11,22 +27,38 @@
 <body>
 
 <div class="header">
-  <h1>Derivative Trade Data</h1>
-  <p>Trade Records System</p>
+  <h1>Today's Trades</h1>
 </div>
 
 <div class="sidenav">
     <title>Menu</title>
     <a href="dailytrades.html">Today's Trades</a>
     <a href="addtradepage.html">Add Trade</a>
+    <a href="edittrades.html">Edit Trade</a>
+    <a href="deletetrades.html">Delete Trade</a>
     <a href="reportarchive.html">Report Archive</a>
     <a href="settingspage.html">Settings</a>
   </div>
 
 <div class="main">
-  <button class="button button1">Add Trade</button>
-  <button class="button button1">Edit Trade</button>
-  <button class="button button1">Delete Trade</button>
+  <form>
+    <input type="text" name="value" displayedOnPage="Value To Search"><br><br>
+    <input type="text" name="search" value="Filter"><br><br>
+    <table>
+      <tr>Trade ID</tr>
+      <tr>Date Of Trade</tr>
+      <tr>Time Of Trade</tr>
+      <tr>Product</tr>
+      <tr>Buying Party</tr>
+      <tr>Selling Party</tr>
+      <tr>Notional Amount</tr>
+      <tr>Quantity</tr>
+      <tr>Maturity Date</tr>
+      <tr>Underlying Amount</tr>
+      <tr>Underlying Currency</tr>
+      <tr>Strike Price</tr>
+    </table>
+  </form>
 </div>
 
 <div class="footer">

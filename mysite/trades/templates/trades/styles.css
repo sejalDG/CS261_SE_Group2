@@ -27,14 +27,14 @@ body {
 
 .header {
   margin-left: 160px;
-  padding: 80px;
+  padding: 40px;
   text-align: center;
-  background: #1abc9c;
+  background: #0018a8;
   color: white;
 }
 
 .header h1 {
-  font-size: 40px;
+  font-size: 60px;
 }
 
 .main {
@@ -159,7 +159,7 @@ input[type=date], input[type=time] {
 }
 
 .button {
-  background-color: #1abc9c;
+  background-color: #0018a8;
   border: none;
   color: white;
   padding: 20px;
