@@ -5,6 +5,7 @@ from .models import Trade
 from .forms import AddTradeForm
 from django.urls import reverse
 from django.views import generic
+from datetime import date, datetime
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
@@ -22,6 +23,7 @@ def add(request):
     return render(request, 'trades/addtradepage.html', {'form': form})
 
 def daily(request):
+
     return render(request, 'trades/dailytrades.html')
 
 def delete(request):
@@ -49,15 +51,15 @@ def settings(request):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/results.html', {'question': question})
 
-###Useful later
-# class IndexView(generic.ListView):
-#     template_name = 'polls/index.html'
-#     context_object_name = 'latest_question_list'
-#
-#     def get_queryset(self):
-#         """Return the last five published questions."""
-#         return Question.objects.order_by('-pub_date')[:5]
-###
+
+class DailyView(generic.ListView):
+    template_name = 'trades/dailytrades.html'
+    context_object_name = 'latest_trade_list'
+
+    def get_queryset(self):
+        """Return all trades from the current day."""
+        return Trade.objects.filter(dateCreated=date.today())
+
 
 # class DetailView(generic.DetailView):
 #     model = Question
