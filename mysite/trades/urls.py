@@ -16,6 +16,6 @@ app_name = 'trades' # Add a namespace
 urlpatterns = [
     path('', views.index, name='index'),
     #path('<int:pk>/', views.DetailView.as_view(), name='detail'),
-    ###path('add/', views.ResultsView.as_view(), name='add'),
+    path('add/', views.add, name='add'),
     #path('<int:question_id>/vote/', views.vote, name='vote'),
 ]

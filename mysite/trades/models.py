@@ -24,9 +24,69 @@ class Trade(models.Model):
         choices=currencyChoices,
         default=POUNDS,
     )
-    strikePrice = models.DecimalField(max_digits=6, decimal_places=2)
+    strikePrice = models.FloatField()
     def __str__(self):
         return "Trade ID " + str(self.id)
+
+class strikePrice(models.Model):
+    product = models.CharField(max_length=200)
+	buyer = models.CharField(max_length=200)
+	seller = models.CharField(max_length=200)
+	mean = models.FloatField()
+	standard_deviation = models.FloatField()
+	min = models.FloatField()
+	max = models.FloatField()
+	count = models.PositiveIntegerField()
+
+class underlyingPrice(models.Model):
+    product = models.CharField(max_length=200)
+	buyer = models.CharField(max_length=200)
+	seller = models.CharField(max_length=200)
+	mean = models.FloatField()
+	standard_deviation = models.FloatField()
+	min = models.FloatField()
+	max = models.FloatField()
+	count = models.PositiveIntegerField()
+
+class quantityEstimate(models.Model):
+    product = models.CharField(max_length=200)
+	buyer = models.CharField(max_length=200)
+	seller = models.CharField(max_length=200)
+	mean = models.FloatField()
+	standard_deviation = models.FloatField()
+	min = models.FloatField()
+	max = models.FloatField()
+	count = models.PositiveIntegerField()
+
+class notionalAmount(models.Model):
+    product = models.CharField(max_length=200)
+	buyer = models.CharField(max_length=200)
+	seller = models.CharField(max_length=200)
+	mean = models.FloatField()
+	standard_deviation = models.FloatField()
+	min = models.FloatField()
+	max = models.FloatField()
+	count = models.PositiveIntegerField()
+
+class currencyValues(models.Model):
+    date = models.DateField('date created')
+    POUNDS = 'GBP'
+    DOLLARS = 'USD'
+    currencyChoices = [
+        (POUNDS, 'Pounds'),
+        (DOLLARS, 'Dollars'),
+    ]
+    currency = models.CharField(
+        max_length=3,
+        choices=currencyChoices,
+        default=POUNDS,
+    )
+	valueInUSD = models.FloatField()
+
+class stockPrices(models.Model):
+    date = models.DateField('date created')
+	companyID = models.CharField(max_length=200)
+	stockPrice = models.FloatField()
 
 
 # class Question(models.Model):
