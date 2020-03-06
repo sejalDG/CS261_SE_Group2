@@ -68,7 +68,7 @@ class notionalAmount(models.Model):
     max = models.FloatField()
     count = models.PositiveIntegerField()
 
-class currencyValues(models.Model):
+class currencyValue(models.Model):
     date = models.DateField('date created')
     POUNDS = 'GBP'
     DOLLARS = 'USD'
@@ -83,7 +83,7 @@ class currencyValues(models.Model):
     )
     valueInUSD = models.FloatField()
 
-class stockPrices(models.Model):
+class stockPrice(models.Model):
     date = models.DateField('date created')
     companyID = models.CharField(max_length=200)
     stockPrice = models.FloatField()
