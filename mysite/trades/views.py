@@ -11,6 +11,21 @@ def index(request):
 def add(request):
     return render(request, 'trades/addtradepage.html')
 
+def daily(request):
+    return render(request, 'trades/dailytrades.html')
+
+def delete(request):
+    return render(request, 'trades/deletetrades.html')
+
+def edit(request):
+    return render(request, 'trades/edittrades.html')
+
+def archive(request):
+    return render(request, 'trades/reportarchive.html')
+
+def settings(request):
+    return render(request, 'trades/settingspage.html')
+
 # def index(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
 #     context = {'latest_question_list': latest_question_list}

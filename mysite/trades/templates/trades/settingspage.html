@@ -1,11 +1,16 @@
 <!DOCTYPE html>
+
+{% load static %}
+
 <html lang="en">
 <head>
   <title>Settings</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <script src="https://kit.fontawesome.com/7835308eaf.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" type="text/css" href="{% static 'trades/style.css' %}">
+
+  <!-- <link rel="stylesheet" href="styles.css"> -->
 </head>
 <body>
   <div id="page-container">
@@ -16,11 +21,12 @@
 
       <div class="sidenav">
         <title>Menu</title>
-        <a href="dailytrades.html">Trade Data</a>
-        <a href="addtradepage.html">Add Trade</a>
-        <a href="edittrades.html">Edit Trade</a>
-        <a href="deletetrades.html">Delete Trade</a>
-        <a href="settingspage.html">Settings</a>
+        <a href="{% url 'trades:daily' %}">Trade Data</a>
+        <a href="{% url 'trades:add' %}">Add Trade</a>
+        <a href="{% url 'trades:edit' %}">Edit Trade</a>
+        <a href="{% url 'trades:delete' %}">Delete Trade</a>
+        <a href="{% url 'trades:archive' %}">Report Archive</a>
+        <a href="{% url 'trades:settings' %}">Settings</a>
       </div>
 
       <div class="main">
