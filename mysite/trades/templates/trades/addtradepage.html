@@ -31,7 +31,10 @@
 
       <div class="main">
         <div class="box">
-        <form>
+          <form method="POST" class="trade-form">{% csrf_token %}
+        {{ form.as_p }}
+
+        <!-- <form>
 
           <label for="tradeID">Trade ID:</label><br>
           <input type="text" id="tradeID" name="tradeID"><br>
@@ -87,7 +90,7 @@
             <span class="tooltiptext">Text</span>
           </div><br>
           <input type="number" id="strikePrice" name="strikePrice" step="0.01" min="1"><br>
-
+        -->
           <input type="submit" value="Add Trade">
           <input type="button" value="Cancel">
 

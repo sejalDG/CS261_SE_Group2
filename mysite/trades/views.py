@@ -1,7 +1,8 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Trade
+from .forms import AddTradeForm
 from django.urls import reverse
 from django.views import generic
 
@@ -9,7 +10,16 @@ def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
 def add(request):
-    return render(request, 'trades/addtradepage.html')
+    if request.method == "POST":
+        form = AddTradeForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.save()
+            # return redirect('post_detail', pk=post.pk)
+            return redirect('trades:daily')
+    else:
+        form = AddTradeForm()
+    return render(request, 'trades/addtradepage.html', {'form': form})
 
 def daily(request):
     return render(request, 'trades/dailytrades.html')

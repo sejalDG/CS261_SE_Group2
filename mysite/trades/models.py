@@ -1,11 +1,14 @@
-import datetime
-
+#import datetime
+from datetime import date, datetime
 from django.db import models
 from django.utils import timezone
 
+dateToday = date.today().strftime("%d/%m/%Y")
+timeNow = datetime.now().strftime("%H:%M:%S")
+
 class Trade(models.Model):
-    dateCreated = models.DateField('date created')
-    timeCreated = models.TimeField('time created')
+    dateCreated = models.DateField('date created', default=dateToday)
+    timeCreated = models.TimeField('time created', default=timeNow)
     prodInfo = models.CharField(max_length=200)
     buyingPartyInfo = models.CharField(max_length=200)
     sellingPartyInfo = models.CharField(max_length=200)
