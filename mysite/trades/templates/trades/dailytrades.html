@@ -72,22 +72,27 @@ function filterTable($query)
         <th>Underlying Currency</th>
         <th>Strike Price</th>
       </tr>
-      <?php while($row = mysqli_fetch_array($search_result)):?>
-      <tr>
-        <td><?php echo $row['id'];?></td>
-        <td><?php echo $row['dateCreated'];?></td>
-        <td><?php echo $row['timeCreated'];?></td>
-        <td><?php echo $row['prodInfo'];?></td>
-        <td><?php echo $row['buyingPartyInfo'];?></td>
-        <td><?php echo $row['sellingPartyInfo'];?></td>
-        <td><?php echo $row['notionalAmount'];?></td>
-        <td><?php echo $row['quanity'];?></td>
-        <td><?php echo $row['maturityDate'];?></td>
-        <td><?php echo $row['underlyingAmount'];?></td>
-        <td><?php echo $row['underlyingCurrency'];?></td>
-        <td><?php echo $row['strikePrice'];?></td>
-      </tr>
-      <?php endwhile;?>
+      <!-- <?php while($row = mysqli_fetch_array($search_result)):?> -->
+      {% if latest_trade_list %}
+        {% for trade in latest_trade_list %}
+          <tr>
+            <td>{{ trade.id }}</td>
+            <td>{{ trade.dateCreated }}</td>
+            <td>{{ trade.timeCreated }}</td>
+            <td>{{ trade.prodInfo }}</td>
+            <td>{{ trade.buyingPartyInfo }}</td>
+            <td>{{ trade.sellingPartyInfo }}</td>
+            <td>{{ trade.notionalAmount }}</td>
+            <td>{{ trade.quantity }}</td>
+            <td>{{ trade.maturityDate }}</td>
+            <td>{{ trade.underlyingAmount }}</td>
+            <td>{{ trade.underlyingCurrency }}</td>
+            <td>{{ trade.strikePrice }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <p>No polls are available.</p>
+      {% endif %}
     </table>
   </form>
 </div>
