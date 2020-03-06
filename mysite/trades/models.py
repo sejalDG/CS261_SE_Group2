@@ -30,43 +30,43 @@ class Trade(models.Model):
 
 class strikePrice(models.Model):
     product = models.CharField(max_length=200)
-	buyer = models.CharField(max_length=200)
-	seller = models.CharField(max_length=200)
-	mean = models.FloatField()
-	standard_deviation = models.FloatField()
-	min = models.FloatField()
-	max = models.FloatField()
-	count = models.PositiveIntegerField()
+    buyer = models.CharField(max_length=200)
+    seller = models.CharField(max_length=200)
+    mean = models.FloatField()
+    standard_deviation = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    count = models.PositiveIntegerField()
 
 class underlyingPrice(models.Model):
     product = models.CharField(max_length=200)
-	buyer = models.CharField(max_length=200)
-	seller = models.CharField(max_length=200)
-	mean = models.FloatField()
-	standard_deviation = models.FloatField()
-	min = models.FloatField()
-	max = models.FloatField()
-	count = models.PositiveIntegerField()
+    buyer = models.CharField(max_length=200)
+    seller = models.CharField(max_length=200)
+    mean = models.FloatField()
+    standard_deviation = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    count = models.PositiveIntegerField()
 
 class quantityEstimate(models.Model):
     product = models.CharField(max_length=200)
-	buyer = models.CharField(max_length=200)
-	seller = models.CharField(max_length=200)
-	mean = models.FloatField()
-	standard_deviation = models.FloatField()
-	min = models.FloatField()
-	max = models.FloatField()
-	count = models.PositiveIntegerField()
+    buyer = models.CharField(max_length=200)
+    seller = models.CharField(max_length=200)
+    mean = models.FloatField()
+    standard_deviation = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    count = models.PositiveIntegerField()
 
 class notionalAmount(models.Model):
     product = models.CharField(max_length=200)
-	buyer = models.CharField(max_length=200)
-	seller = models.CharField(max_length=200)
-	mean = models.FloatField()
-	standard_deviation = models.FloatField()
-	min = models.FloatField()
-	max = models.FloatField()
-	count = models.PositiveIntegerField()
+    buyer = models.CharField(max_length=200)
+    seller = models.CharField(max_length=200)
+    mean = models.FloatField()
+    standard_deviation = models.FloatField()
+    min = models.FloatField()
+    max = models.FloatField()
+    count = models.PositiveIntegerField()
 
 class currencyValues(models.Model):
     date = models.DateField('date created')
@@ -81,12 +81,12 @@ class currencyValues(models.Model):
         choices=currencyChoices,
         default=POUNDS,
     )
-	valueInUSD = models.FloatField()
+    valueInUSD = models.FloatField()
 
 class stockPrices(models.Model):
     date = models.DateField('date created')
-	companyID = models.CharField(max_length=200)
-	stockPrice = models.FloatField()
+    companyID = models.CharField(max_length=200)
+    stockPrice = models.FloatField()
 
 
 # class Question(models.Model):

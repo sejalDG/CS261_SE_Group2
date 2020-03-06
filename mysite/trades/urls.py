@@ -17,5 +17,10 @@ urlpatterns = [
     path('', views.index, name='index'),
     #path('<int:pk>/', views.DetailView.as_view(), name='detail'),
     path('add/', views.add, name='add'),
+    path('daily/', views.daily, name='daily'),
+    path('delete/', views.delete, name='delete'),
+    path('edit/', views.edit, name='edit'),
+    path('archive/', views.archive, name='archive'),
+    path('settings/', views.settings, name='settings'),
     #path('<int:question_id>/vote/', views.vote, name='vote'),
 ]
