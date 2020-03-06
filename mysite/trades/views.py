@@ -8,6 +8,9 @@ from django.views import generic
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
+def add(request):
+    return render(request, 'trades/addtradepage.html')
+
 # def index(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
 #     context = {'latest_question_list': latest_question_list}
