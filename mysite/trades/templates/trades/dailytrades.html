@@ -76,7 +76,7 @@ function filterTable($query)
       {% if latest_trade_list %}
         {% for trade in latest_trade_list %}
           <tr>
-            <td>{{ trade.id }}</td>
+            <td><a href="{% url 'trades:edit' %}">{{ trade.id }}</a></td>
             <td>{{ trade.dateCreated }}</td>
             <td>{{ trade.timeCreated }}</td>
             <td>{{ trade.prodInfo }}</td>
