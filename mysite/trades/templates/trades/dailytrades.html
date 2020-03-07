@@ -1,27 +1,3 @@
-<?php
-$serverName = "group7.cz9bnfubqjbd.eu-west-2.rds.amazonaws.com";
-$username = "group7root";
-$password = "group7password";
-$dbName = "group2";
-
-<!-- if(isset($_POST['search'])) {
-  $query = "SELECT * FROM group2"
-  $search_result = filterTable($query);
-}
-else{
-  $query = "SELECT * FROM group2"
-  $search_result = filterTable($query);
-}
-
-
-function filterTable($query)
- {
-  $connect = mysqli_connect($serverName, $username, $password, $dbName);
-  $filterDB = mysqli_query($connect, $query);
-  return $filterDB;
-} -->
-?>
-
 <!DOCTYPE html>
 
 {% load static %}
@@ -47,8 +23,8 @@ function filterTable($query)
     <title>Menu</title>
     <a href="{% url 'trades:daily' %}">Trade Data</a>
     <a href="{% url 'trades:add' %}">Add Trade</a>
-    <a href="{% url 'trades:edit' %}">Edit Trade</a>
-    <a href="{% url 'trades:delete' %}">Delete Trade</a>
+
+
     <a href="{% url 'trades:archive' %}">Report Archive</a>
     <a href="{% url 'trades:settings' %}">Settings</a>
   </div>
@@ -76,7 +52,7 @@ function filterTable($query)
       {% if latest_trade_list %}
         {% for trade in latest_trade_list %}
           <tr>
-            <td><a href="{% url 'trades:edit' %}">{{ trade.id }}</a></td>
+            <td><a href="{% url 'trades:edit' trade.id %}">{{ trade.id }}</a></td>
             <td>{{ trade.dateCreated }}</td>
             <td>{{ trade.timeCreated }}</td>
             <td>{{ trade.prodInfo }}</td>
@@ -91,7 +67,7 @@ function filterTable($query)
           </tr>
         {% endfor %}
       {% else %}
-        <p>No polls are available.</p>
+        <p>No trades are available.</p>
       {% endif %}
     </table>
   </form>
