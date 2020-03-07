@@ -1,27 +1,3 @@
-<?php
-$serverName = "group7.cz9bnfubqjbd.eu-west-2.rds.amazonaws.com";
-$username = "group7root";
-$password = "group7password";
-$dbName = "group2";
-
-<!-- if(isset($_POST['search'])) {
-  $query = "SELECT * FROM group2"
-  $search_result = filterTable($query);
-}
-else{
-  $query = "SELECT * FROM group2"
-  $search_result = filterTable($query);
-}
-
-
-function filterTable($query)
- {
-  $connect = mysqli_connect($serverName, $username, $password, $dbName);
-  $filterDB = mysqli_query($connect, $query);
-  return $filterDB;
-} -->
-?>
-
 <!DOCTYPE html>
 
 {% load static %}
@@ -47,8 +23,8 @@ function filterTable($query)
     <title>Menu</title>
     <a href="{% url 'trades:daily' %}">Trade Data</a>
     <a href="{% url 'trades:add' %}">Add Trade</a>
-    <a href="{% url 'trades:edit' %}">Edit Trade</a>
-    <a href="{% url 'trades:delete' %}">Delete Trade</a>
+
+
     <a href="{% url 'trades:archive' %}">Report Archive</a>
     <a href="{% url 'trades:settings' %}">Settings</a>
   </div>
@@ -72,22 +48,27 @@ function filterTable($query)
         <th>Underlying Currency</th>
         <th>Strike Price</th>
       </tr>
-      <?php while($row = mysqli_fetch_array($search_result)):?>
-      <tr>
-        <td><?php echo $row['id'];?></td>
-        <td><?php echo $row['dateCreated'];?></td>
-        <td><?php echo $row['timeCreated'];?></td>
-        <td><?php echo $row['prodInfo'];?></td>
-        <td><?php echo $row['buyingPartyInfo'];?></td>
-        <td><?php echo $row['sellingPartyInfo'];?></td>
-        <td><?php echo $row['notionalAmount'];?></td>
-        <td><?php echo $row['quanity'];?></td>
-        <td><?php echo $row['maturityDate'];?></td>
-        <td><?php echo $row['underlyingAmount'];?></td>
-        <td><?php echo $row['underlyingCurrency'];?></td>
-        <td><?php echo $row['strikePrice'];?></td>
-      </tr>
-      <?php endwhile;?>
+      <!-- <?php while($row = mysqli_fetch_array($search_result)):?> -->
+      {% if latest_trade_list %}
+        {% for trade in latest_trade_list %}
+          <tr>
+            <td><a href="{% url 'trades:edit' trade.id %}">{{ trade.id }}</a></td>
+            <td>{{ trade.dateCreated }}</td>
+            <td>{{ trade.timeCreated }}</td>
+            <td>{{ trade.prodInfo }}</td>
+            <td>{{ trade.buyingPartyInfo }}</td>
+            <td>{{ trade.sellingPartyInfo }}</td>
+            <td>{{ trade.notionalAmount }}</td>
+            <td>{{ trade.quantity }}</td>
+            <td>{{ trade.maturityDate }}</td>
+            <td>{{ trade.underlyingAmount }}</td>
+            <td>{{ trade.underlyingCurrency }}</td>
+            <td>{{ trade.strikePrice }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <p>No trades are available.</p>
+      {% endif %}
     </table>
   </form>
 </div>

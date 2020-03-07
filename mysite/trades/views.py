@@ -1,30 +1,89 @@
 from django.http import Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
 from .models import Trade
-from django.urls import reverse
+from .forms import AddTradeForm, EditTradeForm
+from django.urls import reverse, reverse_lazy
 from django.views import generic
+from datetime import date, datetime
+from .render import Render
 
 def index(request):
     return HttpResponse("Hello, world. You're at the index.")
 
 def add(request):
-    return render(request, 'trades/addtradepage.html')
+    if request.method == "POST":
+        form = AddTradeForm(request.POST)
+        if form.is_valid():
+            trade = form.save(commit=False)
+            trade.save()
+            # return redirect('post_detail', pk=post.pk)
+            return redirect('trades:daily')
+    else:
+        form = AddTradeForm()
+    return render(request, 'trades/addtradepage.html', {'form': form})
 
-def daily(request):
-    return render(request, 'trades/dailytrades.html')
+# def daily(request):
+#     return render(request, 'trades/dailytrades.html')
 
 def delete(request):
     return render(request, 'trades/deletetrades.html')
 
-def edit(request):
-    return render(request, 'trades/edittrades.html')
+def edit(request, trade_id):
+    trade = get_object_or_404(Trade, pk=trade_id)
+    if request.method == "POST":
+        form = EditTradeForm(request.POST, instance=trade)
+        if form.is_valid():
+            trade = form.save(commit=False)
+            trade.save()
+            # return redirect('post_detail', pk=post.pk)
+            return redirect('trades:daily')
+    else:
+        form = EditTradeForm(initial={
+        'dateCreated': trade.dateCreated,
+        'timeCreated': str(trade.timeCreated)[:-3],
+        'prodInfo': trade.prodInfo,
+        'buyingPartyInfo': trade.buyingPartyInfo,
+        'sellingPartyInfo': trade.sellingPartyInfo,
+        'notionalAmount': trade.notionalAmount,
+        'quantity': trade.quantity,
+        'maturityDate': trade.maturityDate,
+        'underlyingAmount': trade.underlyingAmount,
+        'underlyingCurrency': trade.underlyingCurrency,
+        'strikePrice': trade.strikePrice})
+    return render(request, 'trades/edittrades.html', {'form': form, 'trade': trade})
 
 def archive(request):
     return render(request, 'trades/reportarchive.html')
 
 def settings(request):
     return render(request, 'trades/settingspage.html')
+
+class DailyView(generic.ListView):
+    template_name = 'trades/dailytrades.html'
+    context_object_name = 'latest_trade_list'
+
+    def get_queryset(self):
+        """Return all trades from the current day."""
+        return Trade.objects.filter(dateCreated=date.today())
+
+class TradeDelete(generic.DeleteView):
+        #template_name = 'deletetrades.html'
+        model = Trade
+        success_url = reverse_lazy('trades:daily')
+
+class Pdf(generic.View):
+
+    def get(self, request):
+        trades = Trade.objects.filter(dateCreated=date.today())
+        today = datetime.now()
+        params = {
+            'today': today,
+            'latest_trade_list': trades,
+            'request': request
+        }
+        return Render.render('trades/dailytrades.html', params)
+
 
 # def index(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
@@ -38,16 +97,6 @@ def settings(request):
 # def results(request, question_id):
 #     question = get_object_or_404(Question, pk=question_id)
 #     return render(request, 'polls/results.html', {'question': question})
-
-###Useful later
-# class IndexView(generic.ListView):
-#     template_name = 'polls/index.html'
-#     context_object_name = 'latest_question_list'
-#
-#     def get_queryset(self):
-#         """Return the last five published questions."""
-#         return Question.objects.order_by('-pub_date')[:5]
-###
 
 # class DetailView(generic.DetailView):
 #     model = Question

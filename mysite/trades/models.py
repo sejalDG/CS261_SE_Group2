@@ -1,7 +1,10 @@
-import datetime
-
+#import datetime
+from datetime import date, datetime
 from django.db import models
 from django.utils import timezone
+
+# dateToday = date.today().strftime("%d/%m/%Y")
+# timeNow = datetime.now().strftime("%H:%M:%S")
 
 class Trade(models.Model):
     dateCreated = models.DateField('date created')
@@ -68,7 +71,7 @@ class notionalAmount(models.Model):
     max = models.FloatField()
     count = models.PositiveIntegerField()
 
-class currencyValues(models.Model):
+class currencyValue(models.Model):
     date = models.DateField('date created')
     POUNDS = 'GBP'
     DOLLARS = 'USD'
@@ -83,7 +86,7 @@ class currencyValues(models.Model):
     )
     valueInUSD = models.FloatField()
 
-class stockPrices(models.Model):
+class stockPrice(models.Model):
     date = models.DateField('date created')
     companyID = models.CharField(max_length=200)
     stockPrice = models.FloatField()
