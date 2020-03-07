@@ -7,15 +7,14 @@ from django.utils import timezone
 # timeNow = datetime.now().strftime("%H:%M:%S")
 
 class Trade(models.Model):
-    dateCreated = models.DateField('date created')
-    timeCreated = models.TimeField('time created')
+    dateCreated = models.CharField(max_length=16)
     prodInfo = models.CharField(max_length=200)
     buyingPartyInfo = models.CharField(max_length=200)
     sellingPartyInfo = models.CharField(max_length=200)
-    notionalAmount = models.PositiveIntegerField()
-    quantity = models.PositiveIntegerField()
-    maturityDate = models.DateField('maturity date')
-    underlyingAmount = models.PositiveIntegerField()
+    notionalAmount = models.FloatField()
+    quantity = models.FloatField()
+    maturityDate = models.CharField(max_length=10)
+    underlyingAmount = models.FloatField()
     POUNDS = 'GBP'
     DOLLARS = 'USD'
     currencyChoices = [
@@ -28,6 +27,7 @@ class Trade(models.Model):
         default=POUNDS,
     )
     strikePrice = models.FloatField()
+
     def __str__(self):
         return "Trade ID " + str(self.id)
 
@@ -72,7 +72,7 @@ class notionalAmount(models.Model):
     count = models.PositiveIntegerField()
 
 class currencyValue(models.Model):
-    date = models.DateField('date created')
+    date = models.CharField(max_length=10)
     POUNDS = 'GBP'
     DOLLARS = 'USD'
     currencyChoices = [
@@ -87,7 +87,7 @@ class currencyValue(models.Model):
     valueInUSD = models.FloatField()
 
 class stockPrice(models.Model):
-    date = models.DateField('date created')
+    date = models.CharField(max_length=10)
     companyID = models.CharField(max_length=200)
     stockPrice = models.FloatField()
 
