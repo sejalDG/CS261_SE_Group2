@@ -131,3 +131,8 @@ DATE_INPUT_FORMATS = ['%d/%m/%Y']
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+'''### IMPORTANT ###'''
+''' CHANGE STATIC_ROOT TO AN EQUIVALENT PATH ON YOUR MACHINE '''
+''' (mysite/trades/static should be the same) '''
+STATIC_ROOT = 'C:/Users/Callum/Documents/CS261/CS261_SE_Group2-master/mysite/trades/static'
