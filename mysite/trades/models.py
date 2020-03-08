@@ -2,20 +2,21 @@
 from datetime import date, datetime
 from django.db import models
 from django.utils import timezone
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 # dateToday = date.today().strftime("%d/%m/%Y")
 # timeNow = datetime.now().strftime("%H:%M:%S")
 
 class Trade(models.Model):
-    dateCreated = models.DateField('date created')
+    dateCreated = models.DateField('date created', default=datetime.today())
     timeCreated = models.TimeField('time created')
     prodInfo = models.CharField(max_length=200)
     buyingPartyInfo = models.CharField(max_length=200)
     sellingPartyInfo = models.CharField(max_length=200)
-    notionalAmount = models.PositiveIntegerField()
-    quantity = models.PositiveIntegerField()
-    maturityDate = models.DateField('maturity date')
-    underlyingAmount = models.PositiveIntegerField()
+    notionalAmount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, validators=[MinValueValidator(0.01), MaxValueValidator(100)])
+    quantity = models.PositiveIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(100)])
+    maturityDate = models.DateField('maturity date', default=datetime.today())
+    underlyingAmount = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, validators=[MinValueValidator(0.01), MaxValueValidator(100)])
     POUNDS = 'GBP'
     DOLLARS = 'USD'
     currencyChoices = [
@@ -27,7 +28,7 @@ class Trade(models.Model):
         choices=currencyChoices,
         default=POUNDS,
     )
-    strikePrice = models.FloatField()
+    strikePrice = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, validators=[MinValueValidator(0.01), MaxValueValidator(100)])
     def __str__(self):
         return "Trade ID " + str(self.id)
 
