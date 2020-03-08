@@ -3,6 +3,7 @@ from datetime import date, datetime
 from django.db import models
 from django.utils import timezone
 from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.exceptions import ValidationError
 
 # dateToday = date.today().strftime("%d/%m/%Y")
 # timeNow = datetime.now().strftime("%H:%M:%S")
@@ -31,6 +32,15 @@ class Trade(models.Model):
     strikePrice = models.DecimalField(max_digits=10, decimal_places=2, default=0.00, validators=[MinValueValidator(0.01), MaxValueValidator(100)])
     def __str__(self):
         return "Trade ID " + str(self.id)
+
+    # Overwrite the existing clean method
+    def clean(self, *args, **kwargs):
+        # Performs validation normally
+        super(Trade, self).clean(*args, **kwargs)
+        # Raise error if maturity date is in the past
+        if self.maturityDate <= date.today():
+            raise ValidationError('Maturity Date must be later than today\'s date.')
+
 
 class strikePrice(models.Model):
     product = models.CharField(max_length=200)
@@ -96,14 +106,3 @@ class Report(models.Model):
     dateCreated = models.DateField(auto_now_add=True)
     timeCreated = models.TimeField(auto_now_add=True)
     upload = models.FileField(upload_to='uploads/')
-
-
-
-
-
-# class Question(models.Model):
-#     question_text = models.CharField(max_length=200)
-#     #pub_date = models.DateTimeField('date published')
-#     # What to return when object is converted to a string
-#     def __str__(self):
-#         return self.question_text
