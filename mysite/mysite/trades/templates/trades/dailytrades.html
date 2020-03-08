@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<!-- Metadata for file -->
+<head>
+  <title>Derivative Trade Data </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/7835308eaf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'trades/style.css' %}">
+
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+
+<div class="header">
+  <h1>Derivative Trade Data</h1>
+</div>
+
+<div class="sidenav">
+    <title>Menu</title>
+    <a href="{% url 'trades:daily' %}">Trade Data</a>
+    <a href="{% url 'trades:add' %}">Add Trade</a>
+    <a href="{% url 'trades:archive' %}">Report Archive</a>
+    <a href="{% url 'trades:settings' %}">Settings</a>
+  </div>
+
+<div class="main">
+  <form>
+    <input type="text" name="value" displayedOnPage="Value To Search"><br><br>
+    <input type="submit" name="search" value="Filter"><br><br>
+    <table>
+      <tr>
+        <th>Trade ID</th>
+        <th>Date Of Trade</th>
+        <th>Time Of Trade</th>
+        <th>Product</th>
+        <th>Buying Party</th>
+        <th>Selling Party</th>
+        <th>Notional Amount</th>
+        <th>Quantity</th>
+        <th>Maturity Date</th>
+        <th>Underlying Amount</th>
+        <th>Underlying Currency</th>
+        <th>Strike Price</th>
+      </tr>
+      <!-- <?php while($row = mysqli_fetch_array($search_result)):?> -->
+      {% if latest_trade_list %}
+        {% for trade in latest_trade_list %}
+          <tr>
+            <td><a href="{% url 'trades:edit' trade.id %}">{{ trade.id }}</a></td>
+            <td>{{ trade.dateCreated }}</td>
+            <td>{{ trade.timeCreated }}</td>
+            <td>{{ trade.prodInfo }}</td>
+            <td>{{ trade.buyingPartyInfo }}</td>
+            <td>{{ trade.sellingPartyInfo }}</td>
+            <td>{{ trade.notionalAmount }}</td>
+            <td>{{ trade.quantity }}</td>
+            <td>{{ trade.maturityDate }}</td>
+            <td>{{ trade.underlyingAmount }}</td>
+            <td>{{ trade.underlyingCurrency }}</td>
+            <td>{{ trade.strikePrice }}</td>
+          </tr>
+        {% endfor %}
+      {% else %}
+        <p>No trades are available.</p>
+      {% endif %}
+    </table>
+  </form>
+  <br>
+  <a href="{% url 'trades:report' %}">Create New Report</a>
+</div>
+
+<div class="footer">
+  <!-- <h2>Footer</h2> -->
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<!-- Metadata for file -->
+<head>
+  <title>Reports Archive </title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://kit.fontawesome.com/7835308eaf.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'trades/style.css' %}">
+
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+</head>
+<body>
+
+<div class="header">
+  <h1>Reports Archive</h1>
+</div>
+
+<div class="sidenav">
+    <title>Menu</title>
+    <a href="{% url 'trades:daily' %}">Trade Data</a>
+    <a href="{% url 'trades:add' %}">Add Trade</a>
+    <a href="{% url 'trades:archive' %}">Report Archive</a>
+    <a href="{% url 'trades:settings' %}">Settings</a>
+  </div>
+
+  <div class="main">
+    <form>
+
+      <table>
+        <tr>
+          <th>Report ID </th>
+          <th>Date Of Report </th>
+          <th>Time Of Report </th>
+          <th>File </th>
+        </tr>
+        <!-- <?php while($row = mysqli_fetch_array($search_result)):?> -->
+        {% if latest_report_list %}
+          {% for report in latest_report_list %}
+            <tr>
+              <td>{{ report.id }}</a></td>
+              <td>{{ report.dateCreated }}</td>
+              <td>{{ report.timeCreated }}</td>
+              <td><a href="{% url 'trades:view' report.id %}">View PDF</td>
+            </tr>
+          {% endfor %}
+        {% else %}
+          <p>No reports are available.</p>
+        {% endif %}
+      </table>
+    </form>
+  </div>
+  <div class="footer">
+    <!-- <h2>Footer</h2> -->
+  </div>
