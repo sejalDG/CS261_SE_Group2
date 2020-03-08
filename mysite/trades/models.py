@@ -91,6 +91,14 @@ class stockPrice(models.Model):
     companyID = models.CharField(max_length=200)
     stockPrice = models.FloatField()
 
+class Report(models.Model):
+    dateCreated = models.DateField(auto_now_add=True)
+    timeCreated = models.TimeField(auto_now_add=True)
+    upload = models.FileField(upload_to='uploads/')
+
+
+
+
 
 # class Question(models.Model):
 #     question_text = models.CharField(max_length=200)

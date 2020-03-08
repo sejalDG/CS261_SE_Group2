@@ -1,15 +1,16 @@
 from django.http import Http404
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Trade
+from .models import Trade, Report
 from .forms import AddTradeForm, EditTradeForm
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from datetime import date, datetime
 from .render import Render
+import os
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the index.")
+    return redirect('trades:daily')
 
 def add(request):
     if request.method == "POST":
@@ -72,18 +73,39 @@ class TradeDelete(generic.DeleteView):
         model = Trade
         success_url = reverse_lazy('trades:daily')
 
-class Pdf(generic.View):
+# class Pdf(generic.View):
+def Pdf(request):
+    #template_name = 'trades/reportarchive.html'
 
-    def get(self, request):
-        trades = Trade.objects.filter(dateCreated=date.today())
-        today = datetime.now()
-        params = {
-            'today': today,
-            'latest_trade_list': trades,
-            'request': request
-        }
-        return Render.render('trades/dailytrades.html', params)
+    trades = Trade.objects.filter(dateCreated=date.today())
+    today = datetime.now()
+    params = {
+        'today': today,
+        'latest_trade_list': trades,
+    }
+    Render.render_to_file('trades/dailyreport.html', params)
+    return HttpResponseRedirect(reverse('trades:archive'))
 
+def pdf_view(request, report_id):
+    report = get_object_or_404(Report, pk=report_id)
+    #path = 'C:/Users/Callum/Documents/CS261/CS261_SE_Group2-master/mysite/trades/static/trades/'
+    # with open(os.path.join(path, report.upload.url), 'r') as pdf:
+    url = str(report.upload.url).replace("%3A", ":") # A bit of a fudge; fixes the URL
+    with open(url, 'r') as pdf:
+        response = HttpResponse(pdf.read(), content_type='application/pdf')
+        response['Content-Disposition'] = 'inline;filename=saved_report.pdf'
+        return response
+    pdf.closed
+# CITE https://stackoverflow.com/questions/11779246/how-to-show-a-pdf-file-in-a-django-view
+
+
+class ArchiveView(generic.ListView):
+    template_name = 'trades/reportarchive.html'
+    context_object_name = 'latest_report_list'
+
+    def get_queryset(self):
+        """Return all reports from the current day.""" # Change to week in future
+        return Report.objects.all()#filter(dateCreated=date.today())
 
 # def index(request):
 #     latest_question_list = Question.objects.order_by('-pub_date')[:5]
